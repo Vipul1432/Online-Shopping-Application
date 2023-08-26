@@ -1,0 +1,13 @@
+<div class="user-dashboard">
+    <!-- Display user details, shopping cart, and order history -->
+    <h2>Welcome, {{ user.name }}</h2>
+    <h3>Shopping Cart</h3>
+    <ul>
+      <li *ngFor="let item of cartItems">{{ item.name }} - {{ item.price }}</li>
+    </ul>
+    <h3>Order History</h3>
+    <ul>
+      <li *ngFor="let order of orderHistory">{{ order.date }} - Total: {{ order.total }}</li>
+    </ul>
+  </div>
+  
