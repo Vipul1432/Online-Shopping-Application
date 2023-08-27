@@ -9,7 +9,10 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 // import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 @NgModule({
@@ -21,6 +24,9 @@ import { FormsModule } from '@angular/forms';
     CartComponent,
     CheckoutComponent,
     OrderConfirmationComponent,
+    RegistrationComponent,
+    LoginComponent,
+    LogoutComponent,
     // UserDashboardComponent
   ],
   imports: [
@@ -28,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
