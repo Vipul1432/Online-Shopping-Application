@@ -1,37 +1,48 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/User';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private users: User[] = [
-    { username: 'user', password: 'password', isAdmin: false, name: 'Regular User' },
-    { username: 'admin', password: 'adminpass', isAdmin: true, name: 'Admin User' }
-  ];
+  private authenticated = false;
+  private currentUsername = '';
+  private baseUrl = 'http://localhost:3000/users'; // Adjust URL based on your server configuration
 
-  private currentUser: User | null = null;
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  login(username: string, password: string): boolean {
-    const user = this.users.find(u => u.username === username && u.password === password);
-    if (user) {
-      this.currentUser = user;
-      return true;
-    }
-    return false;
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.get<any[]>(this.baseUrl, {
+      params: {
+        username,
+        password,
+      },
+    }).pipe(
+      map(users => {
+        const matchedUser = users.find(user => user.username === username && user.password === password);
+        if (matchedUser) {
+          this.authenticated = true;
+          this.currentUsername = username;
+          return true;
+        }
+        return false;
+      })
+    );
   }
 
   logout(): void {
-    this.currentUser = null;
+    this.authenticated = false;
+    this.currentUsername = '';
   }
 
-  getCurrentUser(): User | null {
-    return this.currentUser;
+  isAuthenticated(): boolean {
+    return this.authenticated;
   }
 
-  isAdmin(): boolean {
-    return this.currentUser?.isAdmin || false;
+  getUsername(): string {
+    return this.currentUsername;
   }
 }
