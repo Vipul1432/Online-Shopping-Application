@@ -12,8 +12,7 @@ import { OrderConfirmationComponent } from './order-confirmation/order-confirmat
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-// import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { LogoutComponent } from './logout/logout.component';
     OrderConfirmationComponent,
     RegistrationComponent,
     LoginComponent,
-    LogoutComponent,
-    // UserDashboardComponent
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,

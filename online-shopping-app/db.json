@@ -18,11 +18,13 @@
       "id": 1,
       "name": "Vipul",
       "password": "123"
+      
     },
     {
       "id": 2,
-      "name": "admin",
+      "username": "admin",
       "password": "admin"
+      
     },
     {
       "username": "vipul",
@@ -38,6 +40,11 @@
       "username": "test",
       "password": "123",
       "id": 5
+    },
+    {
+      "username": "abc",
+      "password": "123",
+      "id": 6
     }
   ]
 }

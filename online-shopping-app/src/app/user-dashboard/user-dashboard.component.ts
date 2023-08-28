@@ -1,29 +1,23 @@
-// import { Component, OnInit } from '@angular/core';
-// import { AuthService } from '../services/auth.service';
-// import { CartService } from '../services/cart.service';
-// import { OrderResolver } from '../services/order-resolver.service';
-// import { User } from '../models/User';
-// import { Order } from '../models/order';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-// @Component({
-//   selector: 'app-user-dashboard',
-//   templateUrl: './user-dashboard.component.html',
-//   styleUrls: ['./user-dashboard.component.css']
-// })
-// export class UserDashboardComponent implements OnInit {
-//   user: User;
-//   cartItems: CartItem[] = [];
-//   orderHistory: Order[] = [];
+@Component({
+  selector: 'app-user-dashboard',
+  templateUrl: './user-dashboard.component.html',
+  styleUrls: ['./user-dashboard.component.css']
+})
+export class UserDashboardComponent implements OnInit {
+    order: any[] | undefined;
 
-//   constructor(
-//     private authService: AuthService,
-//     private cartService: CartService,
-//     private orderService: OrderResolver
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.user = this.authService.getCurrentUser();
-//     this.cartItems = this.cartService.getCart();
-//     this.orderHistory = this.orderService.getCart();
-//   }
-// }
+    constructor(private route: ActivatedRoute) {}
+  
+    ngOnInit(): void {
+      this.order = JSON.parse(localStorage.getItem('users') || '[]');
+      console.log("inside order confirmation");
+      console.log(this.order);
+    }
+  
+    calculateTotal(cart: any[]): number {
+      return cart.reduce((total, item) => total + (item.price * (item.quantity || 1)), 0);
+    }
+}

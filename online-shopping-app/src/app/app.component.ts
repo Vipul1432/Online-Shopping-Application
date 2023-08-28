@@ -1,53 +1,47 @@
-import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { CartService } from './services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  private loggedIn = false;
-  private username = '';
+export class AppComponent implements OnInit {
+  loggedIn = false;
+  username: string | null = null;
+  cartItemsCount = 0;
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private authService: AuthService, private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.checkAuthentication();
-  }
+    this.authService.isAuthenticated().subscribe((authenticated) => {
+      this.loggedIn = authenticated;
+      if (authenticated) {
+        this.authService.getUsername().subscribe((username) => {
+          this.username = username;
+        });
+      } else {
+        this.username = null;
+      }
+    });
 
-  checkAuthentication(): void {
-    this.loggedIn = this.authService.isAuthenticated();
-    if (this.loggedIn) {
-      this.username = this.authService.getUsername();
-    }
+    this.cartService.cartItemsCount$.subscribe((count) => {
+      this.cartItemsCount = count;
+    });
   }
 
   isLoggedIn(): boolean {
     return this.loggedIn;
   }
 
-  getUsername(): string {
+  getUsername(): string | null {
     return this.username;
-  }
-
-  login(username: string, password: string): void {
-    // Call the login method from AuthService and handle the result
-    this.authService.login(username, password).subscribe((loggedIn) => {
-      if (loggedIn) {
-        this.checkAuthentication();
-      } else {
-        console.log('Login failed'); // Handle failed login
-      }
-    });
   }
 
   logout(): void {
     this.authService.logout();
-    this.userService.logoutUser().subscribe(() => {
-      this.loggedIn = false;
-      this.username = '';
-    });
+    this.router.navigate(['/login']);
   }
 }
