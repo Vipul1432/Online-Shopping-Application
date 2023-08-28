@@ -1,4 +1,12 @@
+<!-- <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()" placeholder="Search products...">
 <div class="product-list">
-    <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+  <app-product-card *ngFor="let product of filteredProducts" [product]="product"></app-product-card>
+</div> -->
+<div class="product-list-container">
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchTerm" (input)="filterProducts()" placeholder="Search products...">
   </div>
-  
+  <div class="product-list">
+    <app-product-card *ngFor="let product of filteredProducts" [product]="product"></app-product-card>
+  </div>
+</div>
