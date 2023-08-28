@@ -1,5 +1,5 @@
 <div class="product-detail-wrapper">
-<div *ngIf="product" class="product-detail">
+  <div *ngIf="product" class="product-detail">
     <div class="product-images">
       <img [src]="product.image" [alt]="product.name">
     </div>
@@ -7,7 +7,8 @@
       <h1 class="product-title">{{ product.name }}</h1>
       <p class="product-price">{{ product.price | currency }}</p>
       <p class="product-description">{{ product.description }}</p>
-      <button class="add-to-cart-button">Add to Cart</button>
+      <button class="add-to-cart-button" (click)="addToCart()">Add to Cart</button>
+      <a routerLink="/checkout" class="checkout-button">Checkout</a>
     </div>
   </div>
-</div> 
+</div>

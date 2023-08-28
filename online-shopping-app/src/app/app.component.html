@@ -4,13 +4,15 @@
   </div>
   <ul class="navbar-nav">
     <li><a routerLink="/products">Products</a></li>
-    <li><a routerLink="/cart">Cart</a></li>
-    <li><a routerLink="/checkout">Checkout</a></li>
+    
+    
 
     <!-- Display username if logged in -->
-    <ng-container *ngIf="isLoggedIn(); else loginTemplate">
-      <li><span>Welcome, {{ getUsername() }}!</span></li>
-      <li><a (click)="logout()">Logout</a></li>
+    <ng-container *ngIf="loggedIn; else loginTemplate">
+      <li><span>Welcome, {{ getUsername() | titlecase }}!</span></li>
+      <li><a routerLink="/cart">Cart {{ cartItemsCount > 0 ? '(' + cartItemsCount + ')' : '' }}</a></li>
+      <li><a routerLink="/dashboard">Dashboard</a></li>
+      <li><a (click)="logout()" class="logout">Logout</a></li>
     </ng-container>
 
     <!-- Display login and register links if not logged in -->

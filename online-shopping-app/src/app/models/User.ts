@@ -1,7 +1,10 @@
+import { Product } from "./Product";
+
 export interface User {
-    username: string;
-    password: string;
-    isAdmin: boolean;
-    name: string;
-  }
-  
+  id: number;
+  username: string;
+  password: string;
+  isAdmin: boolean;
+  name: string;
+  cart?: Product[];
+}
